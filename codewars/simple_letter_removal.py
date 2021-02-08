@@ -5,7 +5,7 @@ def simple_letter_removal(st, k):
     st_set = sorted(set(st))
     left_most = st_set[0]
     
-    for i in range(k):
+    for _ in range(k):
         try:
             idx = st.index(left_most)
             if idx+1 == st_len:
