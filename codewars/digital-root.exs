@@ -1,3 +1,5 @@
+# https://www.codewars.com/kata/541c8630095125aba6000c00
+
 defmodule FindDigitalRoot do
   def digital_root(n) when n < 10 do
     n
