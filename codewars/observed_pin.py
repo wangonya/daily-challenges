@@ -28,12 +28,16 @@ def get_pin(observed):
     }
 
     _len = len(observed)
-    observed = ''.join(set(observed))
+    possible = []
+    # observed = ''.join(set(observed))
 
     if _len == 1:
         return pin_observed[observed]
 
-    possible = []
+    if len(set(observed)) == 1:
+        for n in observed:
+            for c in pin_observed[n]:
+                possible.append(c * _len)
 
     for n in observed:
         ps = list(''.join(p) for p in permutations(
@@ -41,11 +45,12 @@ def get_pin(observed):
         )
         possible += ps
 
-    for c in pin_observed[n]:
-        possible.append(c * _len)
+    # for c in pin_observed[n]:
+    #     possible.append(c * _len)
 
-    print(sorted(possible))
-    return sorted(possible)
+    possible = set(possible)
+    print(sorted(list(possible)))
+    return sorted(list(possible))
 
 
 if __name__ == "__main__":
@@ -168,3 +173,26 @@ if __name__ == "__main__":
 
 # print(sorted(possible))
 # return sorted(possible)
+
+
+# XXX solution 1
+# from itertools import product
+# PIN = {'1': ('1', '2', '4'),
+#        '2': ('1', '2', '3', '5'),
+#        '3': ('2', '3', '6'),
+#        '4': ('1', '4', '5', '7'),
+#        '5': ('2', '4', '5', '6', '8'),
+#        '6': ('5', '6', '9', '3'),
+#        '7': ('4', '7', '8'),
+#        '8': ('7', '5', '8', '9', '0'),
+#        '9': ('6', '8', '9'),
+#        '0': ('0', '8')}
+# def get_pins(observed):
+#     return [''.join(a) for a in product(*(PIN[b] for b in observed))]
+
+# XXX solution 2
+# from itertools import product
+# ADJACENTS = ('08', '124', '2135', '326', '4157', '52468', '6359', '748', '85790', '968')
+# def get_pins(observed):
+# return [''.join(p) for p in product(*(ADJACENTS[int(d)] for d in
+# observed))]
