@@ -22,9 +22,9 @@ class PaginationHelper:
         pages = list(pages)
         return len(pages)
 
-    # returns th?!?jedi=0, e number of items on the current page. page_index?!? (*_*function: Callable[[], _T]*_*, sentinel: Any) ?!?jedi?!? is zero based
-    # this metho?!?jedi=0, d should return -1 for page_index values that are out of ran?!? (*_*function: Callable[[], Optional[_T]]*_*, sentinel: None) ?!?jedi?!?ge
-    def page_ite?!?jedi=0, m_count(self, page_index):?!? (*_*iterable: Iterable[_T]*_*) ?!?jedi?!?
+    # returns the number of items on the current page. page_index is zero based
+    # this method should return -1 for page_index values that are out of range
+    def page_item_count(self, page_index):
         it = iter(self.collection)
         pages = iter(lambda: tuple(islice(it, self.items_per_page)), ())
         pages = list(pages)
