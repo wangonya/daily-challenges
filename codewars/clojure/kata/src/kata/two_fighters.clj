@@ -1,4 +1,4 @@
-(ns clojure.two-fighters)
+(ns kata.two-fighters)
 
 (defrecord Fighter [name health damage-per-attack])
 
@@ -7,12 +7,9 @@
   (println f2)
   (println (:health f1))
 
-  (while (or (< 1 (:health f1)) (< 1 (:health f2)) )
-    (println (:helth f1) - (:health f2))
-  )
-)
+  (while (or (< 1 (:health f1)) (< 1 (:health f2)))
+    (println (:helth f1) - (:health f2))))
 
-(declare-winner (->Fighter "Harald" 20 5) (->Fighter "Harry" 5 4))
 
 ; ==========
 ; solutions
@@ -24,9 +21,9 @@
     (<= (:hp f1) 0) (:name f2)
     (<= (:hp f2) 0) (:name f1)
     :else
-      (recur
-        (update f1 :hp - (:attack f2))
-        (update f2 :hp - (:attack f1)))))
+    (recur
+     (update f1 :hp - (:attack f2))
+     (update f2 :hp - (:attack f1)))))
 
 (defn declare-winner2 [f1 f2]
   (if (<= (:hp f1) 0)

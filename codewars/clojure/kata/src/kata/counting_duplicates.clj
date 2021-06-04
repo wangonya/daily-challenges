@@ -22,5 +22,3 @@
        (frequencies)
        (filter #(> (second %) 1))
        (count)))
-
-(duplicate-count "aabBcde")
