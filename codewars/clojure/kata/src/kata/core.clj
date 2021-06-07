@@ -57,3 +57,18 @@
 (defn max-sequence2
   [xs]
   (apply max (reductions #(max (+ %1 %2) 0) 0 xs)))
+
+
+;; ====================================================================
+;; https://www.codewars.com/kata/559a28007caad2ac4e000083/train/clojure
+
+(defn fib
+  ([]
+   (fib 1 1))
+  ([a b]
+   (lazy-seq (cons a (fib b (+ a b))))))
+
+(defn perimeter [n]
+  (->> (take (inc n) (fib))
+       (reduce +)
+       (* 4)))
