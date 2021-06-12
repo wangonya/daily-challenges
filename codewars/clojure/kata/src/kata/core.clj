@@ -72,3 +72,18 @@
   (->> (take (inc n) (fib))
        (reduce +)
        (* 4)))
+
+;; ====================================================================
+;; https://www.codewars.com/kata/573992c724fc289553000e95/train/clojure
+
+(defn num-to-seq [n]
+  (->> n
+       (iterate #(quot % 10))
+       (take-while pos?)
+       (mapv #(mod % 10))))
+       
+
+(defn smallest [n]
+  (let [num-seq (num-to-seq n)
+        i (first (apply min-key second (map-indexed vector num-seq)))]
+    i))
