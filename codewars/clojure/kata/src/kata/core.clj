@@ -62,6 +62,7 @@
 ;; ====================================================================
 ;; https://www.codewars.com/kata/559a28007caad2ac4e000083/train/clojure
 
+
 (defn fib
   ([]
    (fib 1 1))
@@ -80,10 +81,28 @@
   (->> n
        (iterate #(quot % 10))
        (take-while pos?)
-       (mapv #(mod % 10))))
-       
+       (mapv #(mod % 10))
+       rseq))
 
 (defn smallest [n]
-  (let [num-seq (num-to-seq n)
-        i (first (apply min-key second (map-indexed vector num-seq)))]
-    i))
+  (let [num-seq (vec (num-to-seq n))
+        indexed-num-seq (map-indexed vector num-seq)
+        smallest (apply min-key second indexed-num-seq)
+        smallest-index (first smallest)
+        smallest-number (second smallest)
+        larger-index (first (some #(if (> (second %) (second smallest)) %) indexed-num-seq))
+        new-num (list* smallest-number (concat (subvec num-seq 0 smallest-index) (subvec num-seq (inc smallest-index))))]
+    [new-num smallest-index larger-index]))
+
+;; solution
+(defn smallest2 [n]
+  (let [s (str n)]
+    (-> (for [i (range (count s))
+              j (range (count s))
+              :when (not= i j)
+              :let [c (get s i)
+                    s (str (subs s 0 i) (subs s (inc i)))
+                    s (str (subs s 0 j) c (subs s j))]]
+          [(bigint s) i j])
+        sort
+        first)))
