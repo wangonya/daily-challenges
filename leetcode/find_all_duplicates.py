@@ -17,3 +17,14 @@ s = Solution()
 assert s.findDuplicates([4, 3, 2, 7, 8, 2, 3, 1]) == [2, 3]
 assert s.findDuplicates([1, 1, 2]) == [1]
 assert s.findDuplicates([1]) == []
+
+# Time:  O(n)
+# Space: O(n), this doesn't satisfy the question
+from collections import Counter
+class Solution3(object):
+    def findDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        return [elem for elem, count in Counter(nums).items() if count == 2]
